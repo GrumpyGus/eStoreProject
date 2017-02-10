@@ -1,0 +1,64 @@
+﻿<div class="col-sm-2">&nbsp;</div>
+<div class="panel col-sm-8 col-xs-12">
+    <div class="panel-title text-center" style="padding-top:20px;">
+        <h3 style="font-weight:bolder">Cart Contents</h3>
+        @*<img src="/img/tray.png" style="height:10%;width:10%;padding-bottom:5%;" />*@
+    </div>
+    <div class="text-center" style="padding-top:10px;">
+        @{
+            Dictionary<string, object> cart = Context.Session.GetObject<Dictionary<string, Object>>("cart");
+            const decimal TAX_PERCENTAGE = 0.13M;
+            decimal subTot = 0.0M;
+            decimal tax = 0.0M;
+            decimal total = 0.0M;
+        }
+        <table class="table table-striped">
+            <tr style="font-weight:bolder;">
+                <th class="col-xs-3 text-center">Code</th>
+                <th class="col-xs-6 text-center">Product Name</th>
+                <th class="col-xs-3 text-center">MSRP</th>
+                <th class="col-xs-3 text-center">Qty</th>
+                <th class="col-xs-3 text-center">Extended</th>
+            </tr>
+            @{
+                if (cart != null)
+                {
+                    foreach (var key in cart.Keys)
+                    {
+                        ProductViewModel item = JsonConvert.DeserializeObject<ProductViewModel>
+                        (Convert.ToString(cart[key]));
+                        if (item.Qty > 0)
+                        {
+                            subTot += item.MSRP * item.Qty;
+                            tax += (item.MSRP * item.Qty) * TAX_PERCENTAGE;
+                            <tr>
+                                <td class="col-xs-4">@item.Id</td>
+                                <td class="col-xs-8">@item.ProductName</td>
+                                <td class="col-xs-4">$@item.MSRP</td>
+                                <td class="col-xs-2">@item.Qty</td>
+                                <td class="col-xs-4">$@(item.MSRP * item.Qty)</td>
+                            </tr>
+                        }
+                    }
+                    total = subTot + tax;
+                }
+            }
+        </table>
+        <hr />
+        <div class="col-xs-12" style="margin-bottom:20px; background-color: #222; color: #9D9D9D;">
+            <div class="col-xs-4">Sub Total: $@Math.Round(subTot, 2)</div>
+            <div class="col-xs-4">Tax: $@Math.Round(tax,2)</div>
+            <div class="col-xs-4">Total: $@Math.Round(total,2)</div>
+        </div>
+        <div class="text-center">
+            <form asp-controller="Cart" asp-action="AddCart" method="post" role="form">
+                @if (Context.Session.GetString(SessionVars.User) != null)
+                {
+                    <button type="submit" class="btn btn-sm btn-primary" id="modalbtn">Add Order</button>
+                }
+                &nbsp;<a href="/Cart/ClearCart" class="btn btn-sm btn-success">Clear Cart</a>
+            </form>
+        </div>
+
+    </div>
+</div>
