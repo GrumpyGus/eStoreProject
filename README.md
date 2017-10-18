@@ -1,17 +1,17 @@
 eStoreProject
 =============
-An online shopping application made for a school project. Uses ASP.NET core and some React.JS components.
+An online shopping application made for a school project. Uses ASP.NET 5 and some React.JS components.
 
 Example Screenshots
 ===================
 Item List and Item Information
 ------------------------------
-![Alt](/Screenshots/Screenshot 1.png "Items")
+<img src="/Screenshots/Screenshot 1.png" alt="Items">
 
 Shopping Cart
 -------------
-![Alt](/Screenshots/Screenshot 2.png "Shopping Cart")
+<img src="/Screenshots/Screenshot 2.png" alt="Shopping Cart">
 
 Branch Locator Using the Google Maps API
 ----------------------------------------
-![Alt](/Screenshots/Screenshot 3.png "Map")
+<img src="/Screenshots/Screenshot 3.png" alt="Google Maps">
