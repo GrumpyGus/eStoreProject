@@ -1,6 +1,6 @@
 eStoreProject
 =============
-An online shopping application made for a school project. Uses ASP.NET 5 and some React.JS components.
+An online shopping application made for a school project. Uses ASP.NET Core and some React.JS components.
 
 Example Screenshots
 ===================
